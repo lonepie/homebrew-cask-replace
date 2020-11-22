@@ -86,7 +86,7 @@ def generate_cask_token(application_path, application_name):
 def replace_application_in(
     applications_dir, always_yes=False, skip_app_from_appstore=True
 ):
-    os.system('brew cask list > ignorecask.txt')
+    os.system('brew list --cask > ignorecask.txt')
     ignores = parse_ignores(os.path.join(os.path.dirname(__file__), 'ignore.txt'))
     ignorescask = parse_ignorescask(os.path.join(os.path.dirname(__file__), 'ignorecask.txt'))
     not_founded = []
@@ -126,7 +126,7 @@ def replace_application_in(
             cask = application_info[application_info.find("'")+1:].split()[0]
             caskapp = cask.strip('\'"')
 
-            if caskapp in ignorescask:
+            if caskapp in ignorescask or application_name in ignorescask:
                 continue
 
             print('{0} -> {1}'.format(application, application_info))
